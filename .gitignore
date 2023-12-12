@@ -1,0 +1,7 @@
+# database data
+/mariadb/data/*
+!/mariadb/data/.gitkeep
+
+# nginx log
+/nginx/log/*
+!/nginx/log/.gitkeep
