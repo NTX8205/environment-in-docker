@@ -10,7 +10,7 @@ services:
             - lnmp-network
         volumes:
             - ./nginx/log:/var/log/nginx
-            - ../projects/project1:/var/www/:z
+            - ../project:/var/www/:z
             - ./docker/nginx/config/conf.d:/etc/nginx/conf.d:z
             - ./docker/nginx/config/nginx.conf:/etc/nginx/nginx.conf:z
 
@@ -25,7 +25,7 @@ services:
         networks:
             - lnmp-network
         volumes:
-            - ../projects/project1:/var/www/:z
+            - ../project:/var/www/:z
 
     database:
         image: mariadb:10.11.6
