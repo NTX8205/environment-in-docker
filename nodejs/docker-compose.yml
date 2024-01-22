@@ -2,11 +2,12 @@ version: '3'
 
 services:
   nodejs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: test/nodejs:v0.1
+    image: node:20.10.0-slim
     ports:
       - 5173:5173
+    tty: true
+    stdin_open: true
+    entrypoint: /bin/bash
+    working_dir: /app
     volumes:
-      - ./:/app:z
+      - ../../frontend:/app:z
