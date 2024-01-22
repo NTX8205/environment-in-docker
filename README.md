@@ -32,6 +32,11 @@
 - mariadb
 - phpmyadmin
 
+其他功能 :
+
+- portainer
+- swagger-editor
+
 ## docker compose 使用方式
 
 ### 設定檔
