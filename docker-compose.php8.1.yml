@@ -3,6 +3,7 @@ version: '3.8'
 services:
     nginx:
         build: ./nginx/
+        image: nginx:1.0
         ports:
             - 80:80
         networks:
@@ -33,6 +34,8 @@ services:
             MARIADB_USER: cms_user
             MARIADB_PASSWORD: cms_secret
             MARIADB_DATABASE: cms
+        ports:
+          - 3306:3306
         networks:
             - lnmp-network
         volumes:
@@ -47,6 +50,7 @@ services:
             - lnmp-network
         environment:
             PMA_HOST: database
-
+        depends_on:
+            - database
 networks:
     lnmp-network:
