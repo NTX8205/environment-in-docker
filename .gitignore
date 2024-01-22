@@ -5,3 +5,5 @@
 # nginx log
 /nginx/log/*
 !/nginx/log/.gitkeep
+
+*.yaml
