@@ -7,3 +7,4 @@
 !/nginx/log/.gitkeep
 
 *.yaml
+.env
