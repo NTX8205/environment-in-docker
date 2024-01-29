@@ -8,18 +8,24 @@
       - [啟動並新建](#啟動並新建)
       - [關閉並刪除所有容器](#關閉並刪除所有容器)
   - [與其他專案結合使用](#與其他專案結合使用)
-  - [服務介紹](#服務介紹)
+  - [Port 使用](#port-使用)
+  - [主要服務介紹](#主要服務介紹)
     - [nginx](#nginx)
-      - [nginx 開放埠號](#nginx-開放埠號)
       - [nginx 設定檔](#nginx-設定檔)
       - [重新載入 nginx 設定檔 (服務不會中斷)](#重新載入-nginx-設定檔-服務不會中斷)
     - [PHP](#php)
       - [PHP 設定檔](#php-設定檔)
       - [composer 使用](#composer-使用)
+    - [nodejs](#nodejs)
     - [mariadb](#mariadb)
       - [mariadb 設定檔](#mariadb-設定檔)
+      - [使用者帳號密碼](#使用者帳號密碼)
       - [資料庫位置](#資料庫位置)
     - [phpmyadmin](#phpmyadmin)
+  - [其他服務](#其他服務)
+    - [portainer](#portainer)
+      - [帳號密碼](#帳號密碼)
+    - [swagger-editor](#swagger-editor)
 
 ## 說明
 
@@ -31,6 +37,7 @@
 - PHP
 - mariadb
 - phpmyadmin
+- nodejs
 
 其他功能 :
 
@@ -75,13 +82,20 @@ docker compose down
 │   └── environment <--服務與環境
 ```
 
-## 服務介紹
+## Port 使用
+
+|  服務  | 使用埠號 |
+| ----- | ----- |
+| nginx  | 80(前端)、8080(後端) |
+| nodejs  | 5173 port(提供測試使用) |
+| mariadb  | 3306 |
+| phpmyadmin  | 81 |
+| portainer  | 9000(http)、9443(https) |
+| swagger-editor  | 8081 |
+
+## 主要服務介紹
 
 ### nginx
-
-#### nginx 開放埠號
-
-nginx 目前開放 80 port
 
 #### nginx 設定檔
 
@@ -96,6 +110,8 @@ docker compose exec nginx /etc/init.d/nginx reload
 ```
 
 ### PHP
+
+php 版本為 8.1
 
 #### PHP 設定檔
 
@@ -120,6 +136,11 @@ docker compose exec php composer --help
 
 執行的預設位置為指定專案(`../project`)
 
+### nodejs
+
+目前用於 Vue 相關專案
+執行的預設位置為指定專案(`../project`)
+
 ### mariadb
 
 #### mariadb 設定檔
@@ -128,6 +149,15 @@ docker compose exec php composer --help
 
 相關設定請在上述路徑的檔案中更改，更改完記得重新啟動容器，讓設定生效
 
+#### 使用者帳號密碼
+
+有需要請自行更改
+
+- root 密碼: very-secret
+- 使用者名稱: cms_user
+- 使用者密碼: cms_secret
+- 資料庫名稱: cms
+
 #### 資料庫位置
 
 路徑 : `mariadb/data/`
@@ -135,3 +165,15 @@ docker compose exec php composer --help
 如有更改資料庫的內容請記得刪除 `data` 裡的所有內容，讓資料庫重置
 
 ### phpmyadmin
+
+## 其他服務
+
+### portainer
+
+#### 帳號密碼
+
+預設帳號為 admin，密碼為 adminadminadmin
+
+### swagger-editor
+
+預設檔案放置位置 `swagger/openapi.yaml`
