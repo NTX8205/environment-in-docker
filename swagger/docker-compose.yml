@@ -7,5 +7,5 @@ services:
         environment:
         - SWAGGER_FILE=/tmp/openapi.yaml
         volumes:
-        - ../filesname:/tmp:z
+        - ./openapi.yaml:/tmp:z
         restart: unless-stopped
