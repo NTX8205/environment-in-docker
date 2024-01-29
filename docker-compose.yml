@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: ./nginx/
+    image: nginx:1.0
+    ports:
+      - 80:80
+      - 8080:8080
+    networks:
+      - lnmp-network
+    volumes:
+      - ./nginx/log:/var/log/nginx
+      - ../backend:/var/www/backend:z
+      - ../frontend/dist:/var/www/app:z
+      - ./nginx/config/conf.d:/etc/nginx/conf.d:z
+      - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:z
+
+  php:
+    build:
+      context: ./php/
+      dockerfile: Dockerfilephp8
+    image: php8-1:1.0
+    networks:
+      - lnmp-network
+    working_dir: /var/www/backend
+    volumes:
+      - ../backend:/var/www/backend:z
+
+  nodejs:
+    image: node:20.10.0-slim
+    ports:
+      - 5173:5173
+    tty: true
+    stdin_open: true
+    entrypoint: /bin/bash
+    working_dir: /var/www/frontend
+    volumes:
+      - ../frontend:/var/www/frontend:z
+
+  database:
+    image: mariadb:10.11.6
+    environment:
+      MARIADB_ROOT_PASSWORD: very-secret
+      MARIADB_USER: cms_user
+      MARIADB_PASSWORD: cms_secret
+      MARIADB_DATABASE: cms
+    ports:
+      - 3306:3306
+    networks:
+      - lnmp-network
+    volumes:
+      - ./mariadb/data:/var/lib/mysql:z
+      - ./mariadb/config/mariadb.cnf:/etc/mysql/mariadb.cnf
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - 81:80
+    networks:
+      - lnmp-network
+    environment:
+      PMA_HOST: database
+    depends_on:
+      - database
+networks:
+  lnmp-network:
