@@ -17,9 +17,7 @@ services:
       - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:z
 
   php:
-    build:
-      context: ./php/
-      dockerfile: Dockerfilephp8
+    build: ./php/
     image: php8-1:1.0
     networks:
       - lnmp-network
@@ -28,7 +26,13 @@ services:
       - ../backend:/var/www/backend:z
 
   nodejs:
-    image: node:20.10.0-slim
+
+    # nodejs and git
+    # build: ./nodejs/
+    # image: node:1.0
+
+    # only nodejs
+    image: node:21.6.1-slim
     ports:
       - 5173:5173
     tty: true
